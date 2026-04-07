@@ -1,0 +1,24 @@
+services:
+  # Backend
+  - type: web
+    name: business-books-backend
+    env: node
+    region: oregon 
+    rootDir: business-books-library/backend
+    buildCommand: npm install
+    startCommand: npm start
+
+  # Frontend
+  - type: web
+    name: business-books-frontend
+    env: static
+    region: oregon
+    rootDir: business-books-library/frontend
+    buildCommand: npm install && npm run build
+    staticPublishPath: dist
+    envVars:
+      - key: VITE_API_URL
+        # Cuando el backend se despliegue, debes cambiar '<URL_DEL_BACKEND>' 
+        # por la URL de verdad proporcionada por Render (por ejemplo: https://business-books-backend.onrender.com/api/books)
+        # Puedes hacerlo directo en el dashboard de Render en Variables de Entorno.
+        value: "<URL_DEL_BACKEND>/api/books"
