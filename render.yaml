@@ -12,7 +12,6 @@ services:
   - type: web
     name: business-books-frontend
     env: static
-    region: oregon
     rootDir: business-books-library/frontend
     buildCommand: npm install && npm run build
     staticPublishPath: dist
