@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="light">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Business Books Library</title>
+    
+    <!-- PWA Manifest -->
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#0d1b2a" />
+    <link rel="apple-touch-icon" href="https://placehold.co/192x192/0d1b2a/e0e1dd?text=BBL" />
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,600;1,600&display=swap" rel="stylesheet">
+    
+    <!-- Styles -->
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <header class="header">
+      <div class="container header-content">
+        <a href="#" class="logo">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H20v20H6.5a2.5 2.5 0 0 1 0-5H20"/></svg>
+          <h1>BBL<span>.</span></h1>
+        </a>
+        
+        <div class="search-bar">
+          <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+          <input type="text" id="searchInput" placeholder="Buscar por título, autor..." autocomplete="off" />
+        </div>
+
+        <div class="header-actions">
+          <button id="themeToggle" class="icon-btn" aria-label="Cambiar tema">
+            <!-- Sol icon (default for light mode, switches to moon later) -->
+            <svg id="themeIcon" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container hero-inner">
+        <h2>Adquiere Sabiduría Empresarial</h2>
+        <p>Explora la colección más selecta de libros de negocios, finanzas, liderazgo y emprendimiento. Eleva tu carrera al siguiente nivel.</p>
+      </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="container">
+      
+      <!-- Filters -->
+      <section class="filters-section">
+        <div class="categories" id="categoryFilters">
+          <button class="filter-btn active" data-category="">Todos</button>
+          <button class="filter-btn" data-category="Marketing">Marketing</button>
+          <button class="filter-btn" data-category="Finance">Finanzas</button>
+          <button class="filter-btn" data-category="Entrepreneurship">Emprendimiento</button>
+          <button class="filter-btn" data-category="Leadership">Liderazgo</button>
+          <button class="filter-btn" data-category="Investing">Inversión</button>
+        </div>
+        <div class="filter-toggles">
+          <button id="favoritesToggle" class="toggle-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+            Mis Favoritos
+          </button>
+        </div>
+      </section>
+
+      <!-- Recommended Section -->
+      <section class="recommended-section" id="recommendedSection" style="display: none;">
+        <h3 class="section-title">Destacados y Recomendados</h3>
+        <div class="books-grid" id="recommendedGrid">
+          <!-- Recommended books injected here -->
+        </div>
+      </section>
+
+      <!-- All Books Section -->
+      <section class="all-books-section">
+        <h3 class="section-title" id="mainSectionTitle">Catálogo de Libros</h3>
+        
+        <!-- Skeleton Loading Grid -->
+        <div class="books-grid" id="skeletonLoader">
+          <!-- Skeletons injected by JS -->
+        </div>
+
+        <!-- Real Books Grid -->
+        <div class="books-grid" id="booksGrid" style="display: none;">
+          <!-- Books injected here -->
+        </div>
+
+        <!-- No Results -->
+        <div class="no-results" id="noResults" style="display: none;">
+          <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/><path d="M9 9l6 6m0-6l-6 6"/></svg>
+          <p>No se encontraron libros que coincidan con tu búsqueda.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+      <div class="container">
+        <p>&copy; 2026 Business Books Library. Algunos datos provistos por la API.</p>
+      </div>
+    </footer>
+
+    <!-- Book Details Modal -->
+    <div class="modal-overlay" id="bookModal">
+      <div class="modal-content">
+        <button class="modal-close" id="closeModal">&times;</button>
+        <div class="modal-body" id="modalBody">
+          <!-- Book details injected here -->
+        </div>
+      </div>
+    </div>
+
+    <!-- Scripts -->
+    <script type="module" src="./main.js"></script>
+    <script>
+      // Service worker registration
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js').catch(error => {
+            console.log('ServiceWorker registration failed: ', error);
+          });
+        });
+      }
+    </script>
+  </body>
+</html>
